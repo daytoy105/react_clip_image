@@ -1,0 +1,52 @@
+{
+  "name": "hammer",
+  "version": "1.0.2",
+  "description": "",
+  "scripts": {
+    "dev": "set NODE_ENV=development && node server.js",
+    "build": "set NODE_ENV=production&& webpack --progress --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "zlz",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.1.18",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-2": "^6.17.0",
+    "css-loader": "^0.22.0",
+    "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.8.4",
+    "imports-loader": "^0.6.4",
+    "node-sass": "^4.5.0",
+    "postcss-loader": "^0.7.0",
+    "sass-loader": "^6.0.0",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.6",
+    "webpack": "^2.5.1",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.17.1",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.7.7",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-hammerjs": "^0.5.0",
+    "react-hot-loader": "^1.3.0",
+    "react-transform-hmr": "^1.0.4"
+  }
+}

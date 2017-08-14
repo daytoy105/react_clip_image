@@ -1,0 +1,69 @@
+@import '../../assets/css/index.scss';
+
+canvas {
+    position: fixed;
+    top: px(73);
+    left: 0;
+    z-index: 4;
+    opacity: .7;
+}
+
+.iscanvas_box {
+    display: flex;
+    justify-content: center;
+}
+
+.canvas_b1,
+.canvas_b2 {
+    position: fixed;
+    width: px(92);
+    height: px(92);
+    bottom: 3.7rem;
+    margin: 0 auto;
+    background: url(../../assets/images/xian_edit.png) 0 0/100% 100%;
+    z-index: 5;
+}
+
+.canvas_b2 {
+    background: url(../../assets/images/xian_ok.png) 0 0/100% 100%;
+}
+
+.canvasImg img {
+    position: absolute;
+    width: 100%;
+    opacity: .7;
+}
+
+#canvas_btn {
+    width: px(81);
+    z-index:101;
+}
+
+.clear,
+.prev{
+    display: none;
+    position: absolute;
+    width: px(81);
+    height: px(81);
+    top: px(15);
+    left: px(15);
+    background: #7d91e4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: tools .5s 0s both;
+    img {
+        width: px(30);
+        margin-bottom: px(5);
+    }
+    p {
+        font-size: px(16);
+        text-align: center;
+        color: #c7d1fa;
+    }
+}
+
+.clear {
+    top: px(116);
+}

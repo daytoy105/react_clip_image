@@ -1,0 +1,50 @@
+@import '../../assets/css/index.scss';
+
+#clipArea {
+    width: 10rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 112;
+    background: rgba(0, 0, 0, .7);
+}
+
+.photoclip{
+    position:absolute;
+}
+.photo-clip-mask {
+    background: url(../../assets/images/clip_mask.png) center center/100% auto;
+}
+
+.photo-clip-area {
+    background: url(../../assets/images/clip_area.png) 0 0/100% 100%;
+}
+
+.clipBtn {
+    position: fixed;
+    width: 100%;
+    top: 72%;
+    z-index: 112;
+    .code_name {
+        display: block;
+        width: px(448);
+        margin: 0 auto;
+        border: 1px solid #333333;
+        padding: px(17) 0;
+        text-align: center;
+        font-size: px(20);
+    }
+    .code_cancel {
+        position: absolute;
+        width: px(92);
+        top: px(95);
+        left: px(177);
+    }
+    .code_ok {
+        position: absolute;
+        width: px(92);
+        top: px(95);
+        left: px(381);
+    }
+}
