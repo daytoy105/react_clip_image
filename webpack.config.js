@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
     //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -26,8 +25,7 @@ var plugins = [
                     return [require('autoprefixer')];
                 }
             }
-    }),
-    new ExtractTextPlugin('style.css')
+    })
 ]
 
 var app = [
@@ -101,13 +99,7 @@ module.exports = {
         },{
             test: /\.(scss|css)$/,
             use:['style-loader','css-loader','postcss-loader','sass-loader']
-        } /*{
-            test: /\.(scss|css)$/,
-            loader: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: 'css-loader!postcss-loader!sass-loader',
-            })
-        }*/, {
+        }, {
             test: /\.(png|jpg|gif|md)$/,
             use: ['file-loader?limit=2048&name=images/[name].[ext]']
         }, {
