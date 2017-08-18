@@ -9,9 +9,22 @@ export default class  ClipItem extends Component {
             ty:0,
             lx:0,
             ly:0,
+            scale:1,
             show_clip:1
         }
     }
+
+    componentDidMount() {
+        let canvas = document.getElementById('canvas_clip')
+        let ctx = canvas.getContext('2d')
+        canvas.width = 261;
+        canvas.height = 261;
+        let img = this.refs.uploadPreview;
+        ctx.drawImage(img, 60, 203, canvas.width, canvas.height)
+        console.log('img',img, canvas.toDataURL())
+        //this.refs.uploadPreview.src = canvas.toDataURL()
+    }
+
     handlePan(e) {
         e.preventDefault()
         let tx = this.state.lx + e.deltaX;
@@ -26,8 +39,30 @@ export default class  ClipItem extends Component {
                 ly: ty,
             })
         }
-        let value = 'translate3d(' + tx + 'px, ' + ty + 'px, 0)'
-        this.refs.photoclip.style.webkitTransform = value;
+        let value = [
+            'translate3d(' + tx + 'px, ' + ty + 'px, 0)',
+            'scale(' + this.state.scale + ', ' + this.state.scale + ')'
+        ];
+        value = value.join(" ");
+        this.refs.uploadPreview.style.webkitTransform = value;
+    }
+    handleZoom(e){
+        let scale = this.state.scale
+        scale += e.deltaY/1000
+        /*if(scale<0){
+            return false
+        }*/
+        this.setState({
+            scale:scale
+        })
+        let value = [
+            'translate3d(' + this.state.lx + 'px, ' + this.state.ly + 'px, 0)',
+            'scale(' + scale + ', ' + scale + ')'
+        ];
+        value = value.join(" ");
+        
+        this.refs.uploadPreview.style.webkitTransform = value;
+       
     }
 
     saveClip() {
@@ -38,7 +73,10 @@ export default class  ClipItem extends Component {
         let tx = 60 - this.state.tx;
         let ty = 203 - this.state.ty;
         let img = this.refs.uploadPreview;
+        let pw = img.offsetWidth
+        let ph = img.offsetHeight
         ctx.drawImage(img, tx, ty, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+        console.log( img, tx, ty,  pw*this.state.scale, ph*this.state.scale, canvas.width, canvas.height)
         this.props.onClip(canvas.toDataURL())
     }
 
@@ -48,13 +86,13 @@ export default class  ClipItem extends Component {
                 <canvas id="canvas_clip" style={{display:'none'}}></canvas>
                 <div id="clipArea">
                     <div ref='photoclip'>
-                        <img ref="uploadPreview" id="uploadPreview" src={this.props.orgin}/>
+                        <img ref="uploadPreview" id="uploadPreview" src={require("images/timg.jpg")}/>
                     </div>
-                    <div className="photo-clip-mask" style={{position: 'absolute', left: '0px',top: '0px', width:' 100%', height: '100%' }}>
-                        <div className="photo-clip-area" style={{position: 'absolute', left: '50%', top:' 50%', width: '261px', height: '261px', marginLeft:'-131.5px', marginTop:'-131.5px'}}></div>
+                    <div className="photo-clip-mask" >
+                        <div className="photo-clip-area" ></div>
                     </div>
-                    <Hammer onPan={this.handlePan.bind(this)}  direction='DIRECTION_ALL'>
-                        <div className="photo-clip-area" style={{position: 'absolute', left: '50%', top: '50%', width: '261px', height: '261px', marginLeft:'-131.5px', marginTop:'-131.5px'}}></div>
+                    <Hammer onPan={this.handlePan.bind(this)}  direction='DIRECTION_ALL' onWheel={this.handleZoom.bind(this)}>
+                        <div className="photo-clip-area"></div>
                     </Hammer>
                 </div>
                 <div className="clipBtn">

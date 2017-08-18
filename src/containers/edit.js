@@ -7,11 +7,8 @@ export default  class Edit extends Component {
     constructor(props) {
         super(props)   
         this.state={
-            c_index:0 , 
-            show_clip:0,    // 截图
-            show_small:0,
-            show_code:0,
-            orgin_img:'',
+            show_clip:1,    // 截图
+            orgin_img:'images/timg.jpg',
             clip_img:''
         }
     }
@@ -41,7 +38,7 @@ export default  class Edit extends Component {
                 <img className="clipImg" src={this.state.clip_img}/>
                 {
                     this.state.show_clip?
-                    <ClipItem orgin={this.state.orgin_img} onClip={(img)=>this.setState({clip_img:img,show_code:1,show_clip:0,small_code:0})} />
+                    <ClipItem orgin={this.state.orgin_img} onClip={(img)=>this.setState({clip_img:img, show_clip:0})} />
                     :null
                 }
                 <div className="upload_btn">
