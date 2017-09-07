@@ -1,28 +1,23 @@
-import React,{ Component }  from 'react'
+import React, { Component } from 'react'
 import Hammer from './hammer.js'
 import './clip_item.scss'
-export default class  ClipItem extends Component {
+import Cropper from 'cropperjs';
+export default class ClipItem extends Component {
     constructor(props) {
-        super(props)   
-        this.state={
-            tx:0,
-            ty:0,
-            lx:0,
-            ly:0,
-            scale:1,
-            show_clip:1
+        super(props)
+        this.state = {
+            tx: 0,
+            ty: 0,
+            lx: 0,
+            ly: 0,
+            scale: 1,
+            show_clip: 1
         }
     }
 
     componentDidMount() {
-        let canvas = document.getElementById('canvas_clip')
-        let ctx = canvas.getContext('2d')
-        canvas.width = 261;
-        canvas.height = 261;
-        let img = this.refs.uploadPreview;
-        ctx.drawImage(img, 60, 203, canvas.width, canvas.height)
-        console.log('img',img, canvas.toDataURL())
-        //this.refs.uploadPreview.src = canvas.toDataURL()
+        this.refs.uploadPreview.style.width = "auto"
+        this.refs.uploadPreview.style.maxWidth = "auto"
     }
 
     handlePan(e) {
@@ -45,24 +40,23 @@ export default class  ClipItem extends Component {
         ];
         value = value.join(" ");
         this.refs.uploadPreview.style.webkitTransform = value;
+     
     }
-    handleZoom(e){
+    handleZoom(e) {
         let scale = this.state.scale
-        scale += e.deltaY/1000
-        /*if(scale<0){
+        scale += e.deltaY / 1000
+        if (scale < 0) {
             return false
-        }*/
+        }
         this.setState({
-            scale:scale
+            scale: scale
         })
         let value = [
             'translate3d(' + this.state.lx + 'px, ' + this.state.ly + 'px, 0)',
             'scale(' + scale + ', ' + scale + ')'
         ];
         value = value.join(" ");
-        
         this.refs.uploadPreview.style.webkitTransform = value;
-       
     }
 
     saveClip() {
@@ -75,8 +69,14 @@ export default class  ClipItem extends Component {
         let img = this.refs.uploadPreview;
         let pw = img.offsetWidth
         let ph = img.offsetHeight
-        ctx.drawImage(img, tx, ty, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
-        console.log( img, tx, ty,  pw*this.state.scale, ph*this.state.scale, canvas.width, canvas.height)
+        let scale = this.state.scale
+        console.log(scale)
+        if(scale < 1){
+            //ctx.drawImage(img, (canvas.width-pw*scale)/2,(canvas.width-pw*scale)/2, canvas.width*scale,canvas.height*scale)
+        }
+        //if(scale==1){
+            ctx.drawImage(img, tx, ty,  canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+        //}
         this.props.onClip(canvas.toDataURL())
     }
 
